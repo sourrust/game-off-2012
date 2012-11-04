@@ -3,11 +3,12 @@ require.config({
     crafty: 'lib/crafty',
     box2dweb: 'lib/box2dweb',
     box2d: 'components/box2d',
-    box2dtwoway: 'components/box2dTwoway'
+    box2dtwoway: 'components/box2dTwoway',
+    camera: 'components/camera'
   }
 });
 
-require(['crafty', 'box2d', 'box2dtwoway'],
+require(['crafty', 'box2d', 'box2dtwoway', 'camera'],
 
 function(Crafty, b2) {
   'use strict';
@@ -18,7 +19,7 @@ function(Crafty, b2) {
 
   Crafty.e('2D, Canvas, Color, Box2D')
           .color('#ffff00')
-          .attr({ x: 0, y: 624, w: 800, h: 16 })
+          .attr({ x: 0, y: 624, w: 1600, h: 16 })
           .box2d({ bodyType: 'solid' });
 
   Crafty.e('2D, Canvas, Color, Box2D')
@@ -26,7 +27,7 @@ function(Crafty, b2) {
           .attr({ x: 750, y: 570, w: 50, h: 16 })
           .box2d({ bodyType: 'solid' });
 
-  Crafty.e('2D, Canvas, Color, Box2D, b2Twoway')
+  Crafty.e('2D, Canvas, Color, Camera, Box2D, b2Twoway')
           .color('#000')
           .attr({ x: 400, y: 320, w: 32, h: 32 })
           .box2d({ bodyType: 'dynamic'
@@ -35,5 +36,6 @@ function(Crafty, b2) {
                  , rotation: false
                  })
           .twoway(35, 35);
+
   Crafty.box2D.showDebugInfo();
 });
