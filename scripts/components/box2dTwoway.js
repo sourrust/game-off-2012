@@ -47,6 +47,8 @@ function(Crafty, b2) {
                , this.body.GetWorldCenter());
         }
       });
+
+      return this;
     }
   });
 });
