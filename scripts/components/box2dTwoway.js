@@ -10,8 +10,23 @@ function(Crafty, b2) {
     },
 
     twoway: function(_speed, _jump) {
+      var w, h;
       this._speed = _speed;
       this._jump  = _jump;
+
+      w = this.attr().w;
+      h = this.attr().h;
+
+      // setup foot sensor
+      this.addFixture({ bodyType: 'dynamic'
+                      , density: 0
+                      , friction: 0
+                      , shape: [ [1, h]
+                               , [w - 2, h]
+                               ]
+                      });
+
+      this.fixtures[1].SetSensor(true);
 
       this.bind('EnterFrame', function() {
         var jump, jumpforce, moveX, moveY, movement, speed;
