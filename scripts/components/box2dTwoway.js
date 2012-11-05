@@ -2,6 +2,7 @@ define('box2dtwoway', ['crafty','box2d'],
 
 function(Crafty, b2) {
   'use strict';
+  var isHittingSensor;
 
   Crafty.c('b2Twoway', {
     init: function() {
@@ -48,7 +49,7 @@ function(Crafty, b2) {
           jumpforce = this._jump;
         }
 
-        if(this.body.GetLinearVelocity().y === 0) {
+        if(isHittingSensor(this.contact('Box2D'))) {
           this._inAir = false;
         }
 
@@ -66,4 +67,18 @@ function(Crafty, b2) {
       return this;
     }
   });
+
+  isHittingSensor = function(contacts) {
+    var contact, i, isSensor, l;
+
+    l = contacts.length;
+    isSensor = false;
+    for(i = 0; i < l; i++) {
+      contact = contacts[i];
+
+      isSensor |= contact.contact.fixtureA.IsSensor();
+    }
+
+    return !!isSensor;
+  };
 });
