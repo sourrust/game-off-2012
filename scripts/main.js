@@ -35,7 +35,7 @@ function(Crafty, b2) {
                  , friction: 0.5
                  , rotation: false
                  })
-          .twoway(35, 35);
+          .twoway(10, 38);
 
   Crafty.box2D.showDebugInfo();
 });
