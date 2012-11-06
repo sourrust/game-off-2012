@@ -8,6 +8,7 @@ function(Crafty, b2) {
     init: function() {
       this.requires('Keyboard, Box2D');
       this._inAir = false;
+      this._impluse = new b2.Vec2(0, 0);
     },
 
     twoway: function(_speed, _jump) {
@@ -35,6 +36,7 @@ function(Crafty, b2) {
         moveX = false;
         moveY = false;
         speed = 0;
+        jump      = 0;
         jumpforce = 0;
         if(this.isDown('D')) {
           moveX = true;
@@ -59,7 +61,10 @@ function(Crafty, b2) {
             jump = this.body.GetMass() * jumpforce;
           }
           movement = moveX ? speed/32 : 0;
-          return this.body.ApplyImpulse(new b2.Vec2(movement, jump)
+        this._impluse.x = movement;
+        this._impluse.y = jump;
+
+          this.body.ApplyImpulse(this._impluse
                , this.body.GetWorldCenter());
         }
       });
