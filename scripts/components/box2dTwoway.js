@@ -31,19 +31,29 @@ function(Crafty, b2) {
       this.fixtures[1].SetSensor(true);
 
       this.bind('EnterFrame', function() {
-        var jump, jumpforce, moveX, moveY, movement, speed;
+        var jump, jumpforce, mass, moveX, moveY, movement, speed, vel
+          , velChange;
 
-        moveX = false;
-        moveY = false;
-        speed = 0;
         jump      = 0;
         jumpforce = 0;
+        moveX     = false;
+        moveY     = false;
+        speed     = 0;
+        vel       = this.body.GetLinearVelocity();
         if(this.isDown('D')) {
           moveX = true;
-          speed = this._speed;
+
+          speed = (this._inAir && vel.x < 0)
+                ? Math.min(vel.x + 1, this._speed/5)
+                : this._speed;
         } else if(this.isDown('A')) {
           moveX = true;
-          speed = -this._speed;
+
+          speed = (this._inAir && vel.x > 0)
+                ? Math.max(vel.x - 1, -this._speed/5)
+                : -this._speed;
+        } else if(this._inAir) {
+          speed = vel.x * 0.98;
         }
 
         if(this.isDown('W')) {
@@ -55,15 +65,16 @@ function(Crafty, b2) {
           this._inAir = false;
         }
 
-        if(moveX || moveY) {
-          if(!this._inAir) {
-            this._inAir = true;
-            jump = this.body.GetMass() * jumpforce;
-          }
-          movement = moveX ? speed/32 : 0;
+        mass = this.body.GetMass();
+        if(moveY && !this._inAir) {
+          this._inAir = true;
+          jump = mass * jumpforce;
+        }
+        movement = mass * (speed - vel.x);
         this._impluse.x = movement;
         this._impluse.y = jump;
 
+        if(movement !== 0 || jump !== 0) {
           this.body.ApplyImpulse(this._impluse
                , this.body.GetWorldCenter());
         }
