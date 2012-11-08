@@ -7,8 +7,12 @@ function(Crafty, b2) {
   Crafty.c('b2Twoway', {
     init: function() {
       this.requires('Keyboard, Box2D');
-      this._inAir = false;
-      this._impluse = new b2.Vec2(0, 0);
+
+      this._hasDoubleJumped = false;
+      this._impluse         = new b2.Vec2(0, 0);
+      this._inAir           = false;
+      this._jump            = 0;
+      this._speed           = 0;
     },
 
     twoway: function(_speed, _jump) {
