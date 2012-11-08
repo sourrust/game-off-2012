@@ -18,7 +18,7 @@ function(Crafty, b2) {
     twoway: function(_speed, _jump) {
       var w, h;
       this._speed = _speed;
-      this._jump  = _jump;
+      this._jump  = -_jump;
 
       w = this.attr().w;
       h = this.attr().h;
@@ -72,7 +72,7 @@ function(Crafty, b2) {
         mass = this.body.GetMass();
         if(moveY && !this._inAir) {
           this._inAir = true;
-          jump = mass * jumpforce;
+          jump = jumpforce;
         }
         movement = mass * (speed - vel.x);
         this._impluse.x = movement;
