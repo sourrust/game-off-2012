@@ -63,11 +63,12 @@ function(Crafty, b2) {
   };
 
   jumpForce = function() {
-    var jump, jumpforce, moveY;
+    var jump, jumpforce, moveY, vel;
 
     jump      = 0;
     jumpforce = 0;
     moveY     = false;
+    vel       = this.body.GetLinearVelocity();
 
     if(this.isDown('W')) {
       moveY = true;
@@ -76,11 +77,16 @@ function(Crafty, b2) {
 
     if(isHittingSensor(this.contact('Box2D'))) {
       this._inAir = false;
+      this._hasDoubleJumped = false;
     }
 
     if(moveY && !this._inAir) {
       this._inAir = true;
+
       jump = jumpforce;
+    } else if(moveY && !this._hasDoubleJumped && vel.y > 0) {
+      this._hasDoubleJumped = true;
+      jump = jumpforce * 2;
     }
 
     return jump;
