@@ -2,7 +2,7 @@ define('box2dtwoway', ['crafty','box2d'],
 
 function(Crafty, b2) {
   'use strict';
-  var isHittingSensor;
+  var isHittingSensor, jumpForce, movementForce;
 
   Crafty.c('b2Twoway', {
     init: function() {
@@ -35,13 +35,9 @@ function(Crafty, b2) {
       this.fixtures[1].SetSensor(true);
 
       this.bind('EnterFrame', function() {
-        var jump, jumpforce, mass, moveX, moveY, movement, speed, vel
-          , velChange;
+        var mass, moveX, moveY, movement, speed, vel, velChange;
 
-        jump      = 0;
-        jumpforce = 0;
         moveX     = false;
-        moveY     = false;
         speed     = 0;
         vel       = this.body.GetLinearVelocity();
         if(this.isDown('D')) {
@@ -60,25 +56,12 @@ function(Crafty, b2) {
           speed = vel.x * 0.98;
         }
 
-        if(this.isDown('W')) {
-          moveY = true;
-          jumpforce = this._jump;
-        }
-
-        if(isHittingSensor(this.contact('Box2D'))) {
-          this._inAir = false;
-        }
-
         mass = this.body.GetMass();
-        if(moveY && !this._inAir) {
-          this._inAir = true;
-          jump = jumpforce;
-        }
         movement = mass * (speed - vel.x);
         this._impluse.x = movement;
-        this._impluse.y = jump;
+        this._impluse.y = jumpForce.call(this);
 
-        if(movement !== 0 || jump !== 0) {
+        if(movement !== 0 || this._impluse.y !== 0) {
           this.body.ApplyImpulse(this._impluse
                , this.body.GetWorldCenter());
         }
@@ -101,4 +84,30 @@ function(Crafty, b2) {
 
     return !!isSensor;
   };
+
+  jumpForce = function() {
+    var jump, jumpforce, moveY;
+
+    jump      = 0;
+    jumpforce = 0;
+    moveY     = false;
+
+    if(this.isDown('W')) {
+      moveY = true;
+      jumpforce = this._jump;
+    }
+
+    if(isHittingSensor(this.contact('Box2D'))) {
+      this._inAir = false;
+    }
+
+    if(moveY && !this._inAir) {
+      this._inAir = true;
+      jump = jumpforce;
+    }
+
+    return jump;
+  };
+
+  movementForce = function() {};
 });
