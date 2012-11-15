@@ -103,14 +103,14 @@ function(Crafty, b2) {
       moveX = true;
 
       speed = (this._inAir && vel.x < 0)
-            ? Math.min(vel.x + 1, this._speed/5)
-            : this._speed;
+            ? Math.min(vel.x + 0.4, this._speed/5)
+            : Math.min(vel.x + 0.5, this._speed);
     } else if(this.isDown('A')) {
       moveX = true;
 
       speed = (this._inAir && vel.x > 0)
-            ? Math.max(vel.x - 1, -this._speed/5)
-            : -this._speed;
+            ? Math.max(vel.x - 0.4, -this._speed/5)
+            : Math.max(vel.x - 0.5, -this._speed);
     } else if(this._inAir) {
       speed = vel.x * 0.98;
     }
