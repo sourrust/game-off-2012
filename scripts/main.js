@@ -4,11 +4,12 @@ require.config({
     box2dweb: 'lib/box2dweb',
     box2d: 'components/box2d',
     box2dtwoway: 'components/box2dTwoway',
-    camera: 'components/camera'
+    camera: 'components/camera',
+    mainclone: 'components/mainclone'
   }
 });
 
-require(['crafty', 'box2d', 'box2dtwoway', 'camera'],
+require(['crafty','box2d','mainclone'],
 
 function(Crafty, b2) {
   'use strict';
@@ -27,15 +28,7 @@ function(Crafty, b2) {
           .attr({ x: 750, y: 570, w: 50, h: 16 })
           .box2d({ bodyType: 'solid' });
 
-  Crafty.e('2D, Canvas, Color, Camera, Box2D, b2Twoway')
-          .color('#000')
-          .attr({ x: 400, y: 320, w: 32, h: 32 })
-          .box2d({ bodyType: 'dynamic'
-                 , density: 3
-                 , friction: 0.5
-                 , rotation: false
-                 })
-          .twoway(10, 10);
+  Crafty.e('MainClone');
 
   Crafty.box2D.showDebugInfo();
 });
