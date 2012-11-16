@@ -5,11 +5,13 @@ require.config({
     box2d: 'components/box2d',
     box2dtwoway: 'components/box2dTwoway',
     camera: 'components/camera',
-    mainclone: 'components/mainclone'
+    mainclone: 'components/mainclone',
+    platform: 'components/platform',
+    entry: 'scenes/entry'
   }
 });
 
-require(['crafty','box2d','mainclone'],
+require(['crafty','entry'],
 
 function(Crafty, b2) {
   'use strict';
@@ -18,17 +20,7 @@ function(Crafty, b2) {
 
   Crafty.box2D.init(0, 10, 32, true);
 
-  Crafty.e('2D, Canvas, Color, Box2D')
-          .color('#ffff00')
-          .attr({ x: 0, y: 624, w: 1600, h: 16 })
-          .box2d({ bodyType: 'solid' });
-
-  Crafty.e('2D, Canvas, Color, Box2D')
-          .color('#ffff00')
-          .attr({ x: 750, y: 570, w: 50, h: 16 })
-          .box2d({ bodyType: 'solid' });
-
-  Crafty.e('MainClone');
+  Crafty.scene('entry')
 
   Crafty.box2D.showDebugInfo();
 });
