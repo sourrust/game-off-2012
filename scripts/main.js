@@ -20,7 +20,7 @@ function(Crafty, b2) {
 
   Crafty.box2D.init(0, 10, 32, true);
 
-  Crafty.scene('entry')
+  Crafty.scene('entry');
 
   Crafty.box2D.showDebugInfo();
 });
