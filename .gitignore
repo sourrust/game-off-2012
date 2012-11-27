@@ -8,3 +8,6 @@ Thumb.db
 
 # build directory
 build/
+
+# node module directory
+node_modules/
