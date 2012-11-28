@@ -5,6 +5,7 @@ require.config({
     box2d: 'components/box2d',
     box2dtwoway: 'components/box2dTwoway',
     camera: 'components/camera',
+    clone: 'components/clone',
     mainclone: 'components/mainclone',
     platform: 'components/platform',
     entry: 'scenes/entry'
