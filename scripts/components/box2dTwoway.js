@@ -76,12 +76,16 @@ function(Crafty, b2) {
   };
 
   jumpForce = function() {
-    var jump, jumpforce, moveY, vel;
+    var clone, index, jump, jumpforce, moveY, vel;
 
+    index     = this._currentClone;
+    clone     = this._clones[index];
     jump      = 0;
     jumpforce = 0;
     moveY     = false;
     vel       = this.body.GetLinearVelocity();
+
+    this._currentClone = nextCloneIndex(index);
 
     if(this.isDown('W')) {
       moveY = true;
@@ -100,10 +104,16 @@ function(Crafty, b2) {
     } else if(moveY && !this._hasDoubleJumped && vel.y > 0) {
       this._hasDoubleJumped = true;
       jump = jumpforce * 2;
+      moveClone(clone, this.x, this.y);
     }
 
     return jump;
   };
+
+  // toggle between clone of index 0 and 1
+  nextCloneIndex = function(index) {
+    return (index !== 1) ? index + 1: index - 1;
+  }
 
   movementForce = function() {
     var moveX, movement, speed, vel;
