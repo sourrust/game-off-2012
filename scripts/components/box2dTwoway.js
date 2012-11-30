@@ -113,7 +113,7 @@ function(Crafty, b2) {
   // toggle between clone of index 0 and 1
   nextCloneIndex = function(index) {
     return (index !== 1) ? index + 1: index - 1;
-  }
+  };
 
   movementForce = function() {
     var moveX, movement, speed, vel;
