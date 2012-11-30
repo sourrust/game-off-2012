@@ -14,7 +14,7 @@ require.config({
 
 require(['crafty','entry'],
 
-function(Crafty, b2) {
+function(Crafty) {
   'use strict';
   Crafty.init(800, 640);
   Crafty.canvas.init();

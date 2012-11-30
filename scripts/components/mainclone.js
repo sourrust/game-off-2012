@@ -1,6 +1,6 @@
 define('mainclone', ['crafty','box2d','box2dtwoway','camera','clone'],
 
-function(Crafty, b2) {
+function(Crafty) {
   'use strict';
 
   Crafty.c('MainClone', {

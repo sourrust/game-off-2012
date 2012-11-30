@@ -1,6 +1,6 @@
 define('clone', ['crafty','box2d'],
 
-function(Crafty, b2) {
+function(Crafty) {
   'use strict';
 
   Crafty.c('Clone', {
