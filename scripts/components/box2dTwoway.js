@@ -20,8 +20,8 @@ function(Crafty, b2) {
       this._speed = _speed;
       this._jump  = -_jump;
 
-      w = this.attr().w;
-      h = this.attr().h;
+      w = this.w;
+      h = this.h;
 
       // setup foot sensor
       this.addFixture({ bodyType: 'dynamic'
