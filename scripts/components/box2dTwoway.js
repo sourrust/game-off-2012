@@ -132,4 +132,16 @@ function(Crafty, b2) {
 
     return movement;
   };
+
+  moveClone = function(clone, x, y) {
+    clone.visible = false;
+
+    // Needs to be divided by 32 because box2d used 32 as its pixels per
+    // meter and forces/movement is measured that way in the world.
+    x /= 32;
+    y /= 32;
+
+    clone.body.SetPosition(new b2.Vec2(x, y + (20 / 32)));
+    clone.visible = true;
+  };
 });
