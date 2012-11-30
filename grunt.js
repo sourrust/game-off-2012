@@ -1,13 +1,21 @@
 module.exports = function(grunt) {
   'use strict';
 
+  var lintFiles;
+
+  lintFiles = grunt.file.expand(
+                [ 'grunt.js'
+                , 'scripts/*.js'
+                , 'scripts/components/*.js'
+                , 'scripts/scenes/*.js'
+                ]);
+
   grunt.initConfig({
     lint: {
-      all: [ 'grunt.js'
-           , 'script/*.js'
-           , 'script/components/*.js'
-           , 'script/scenes/*.js'
-           ]
+      all: lintFiles.filter(function(file) {
+        // filter out box2d.js since it isn't my code
+        return !(/box2d\.js/.test(file));
+      })
     },
     jshint: {
       options: {
