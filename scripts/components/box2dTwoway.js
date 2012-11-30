@@ -1,18 +1,31 @@
-define('box2dtwoway', ['crafty','box2d'],
+define('box2dtwoway', ['crafty','box2d','clone'],
 
 function(Crafty, b2) {
   'use strict';
-  var isHittingSensor, jumpForce, movementForce;
+  var isHittingSensor, jumpForce, moveClone, movementForce
+    , nextCloneIndex;
 
   Crafty.c('b2Twoway', {
     init: function() {
+      var i, length, pos;
+
       this.requires('Keyboard, Box2D');
 
+      this._currentClone    = 0;
+      this._clones          = [];
       this._hasDoubleJumped = false;
       this._impluse         = new b2.Vec2(0, 0);
       this._inAir           = false;
       this._jump            = 0;
       this._speed           = 0;
+
+      pos = new b2.Vec2(0, 500/32);
+      for(i = 0; i < 2; i++) {
+        length = this._clones.length;
+        this._clones.push(Crafty.e('Clone'));
+        this._clones[length].body.SetPosition(pos);
+        this._clones[length].visible = false;
+      }
     },
 
     twoway: function(_speed, _jump) {
