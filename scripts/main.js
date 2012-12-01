@@ -17,6 +17,7 @@ require(['crafty','entry'],
 function(Crafty) {
   'use strict';
   Crafty.init(800, 640);
+  Crafty.viewport.clampToEntities = false;
   Crafty.canvas.init();
 
   Crafty.box2D.init(0, 10, 32, true);
