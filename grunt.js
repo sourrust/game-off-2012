@@ -44,16 +44,42 @@ module.exports = function(grunt) {
         }
       }
     },
+    less: {
+      dev: {
+        options: {
+          paths: ['less']
+        },
+        files: {
+          'build/style.css': 'less/style.less'
+        }
+      },
+      compress: {
+        options: {
+          paths: ['less'],
+          yuicompress: true
+        },
+        files: {
+          'build/style.css': 'less/style.less'
+        }
+      }
+    },
     min: {
       dist: {
         src: ['scripts/lib/require.js'],
         dest: 'build/require-min.js'
       }
+    },
+    watch: {
+      less: {
+        files: ['less/*.less'],
+        tasks: ['less:dev']
+      }
     }
   });
 
+  grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-contrib-requirejs');
 
-  grunt.registerTask('default', 'lint');
-  grunt.registerTask('build', 'lint requirejs min');
+  grunt.registerTask('default', 'less:dev lint');
+  grunt.registerTask('build', 'requirejs min less:compress');
 };
