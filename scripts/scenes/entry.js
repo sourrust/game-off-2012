@@ -63,7 +63,7 @@ function(Crafty) {
       x += 150;
     }
 
-    Crafty.e('Platform')
+    Crafty.e('WinPlatform')
             .platform({ x: x, y: 550, w: 50, h: 16 }
                      , { color: '#ff0000' });
 
