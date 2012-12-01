@@ -8,11 +8,13 @@ function(Crafty) {
       this.addComponent('2D, Canvas, Color, Box2D');
     },
 
-    platform: function(attr, color) {
-      this.attr(attr);
-      this.color(color);
+    platform: function(attr, opt) {
+      if(!opt.bodyType) opt.bodyType = 'solid';
 
-      this.box2d({ bodyType: 'solid' });
+      this.attr(attr);
+      this.color(opt.color);
+
+      this.box2d({ bodyType: opt.bodyType });
 
       return this;
     }

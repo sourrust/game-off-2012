@@ -85,8 +85,6 @@ function(Crafty, b2) {
     moveY     = false;
     vel       = this.body.GetLinearVelocity();
 
-    this._currentClone = nextCloneIndex(index);
-
     if(this.isDown('W')) {
       moveY = true;
       jumpforce = this._jump;
@@ -105,6 +103,8 @@ function(Crafty, b2) {
       this._hasDoubleJumped = true;
       jump = jumpforce * 2;
       moveClone(clone, this.x, this.y);
+
+      this._currentClone = nextCloneIndex(index);
     }
 
     return jump;
