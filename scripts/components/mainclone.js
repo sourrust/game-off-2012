@@ -7,6 +7,7 @@ define('mainclone',
 , 'camera'
 , 'clone'
 , 'entry'
+, 'winplatform'
 ],
 
 function(Crafty, b2, config) {
@@ -17,6 +18,8 @@ function(Crafty, b2, config) {
       this.addComponent('Clone, Camera, b2Twoway');
 
       this.twoway(10, 10);
+
+      this.text = Crafty.e('2D, Canvas, Text');
 
       this.bind('Change', function(position) {
         var clone, i, l, ppm, vec;
@@ -37,6 +40,15 @@ function(Crafty, b2, config) {
             clone.body.SetPosition(vec);
           }
         }
+      });
+
+      this.onContact('WinPlatform', function() {
+        this.text.attr({ x: this.x + 16, y: this.y - 16 })
+                 .textFont({ family: 'Arial'
+                           , weight: 'bold'
+                           , size: '20px'
+                           })
+                 .text('Win!');
       });
     }
   });
