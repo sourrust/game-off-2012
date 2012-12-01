@@ -8,6 +8,7 @@ require.config({
     clone: 'components/clone',
     mainclone: 'components/mainclone',
     platform: 'components/platform',
+    winplatform: 'components/winplatform',
     entry: 'scenes/entry',
     config: 'config'
   }
