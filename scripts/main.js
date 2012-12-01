@@ -8,19 +8,20 @@ require.config({
     clone: 'components/clone',
     mainclone: 'components/mainclone',
     platform: 'components/platform',
-    entry: 'scenes/entry'
+    entry: 'scenes/entry',
+    config: 'config'
   }
 });
 
-require(['crafty','entry'],
+require(['crafty','config','entry'],
 
-function(Crafty) {
+function(Crafty, config) {
   'use strict';
-  Crafty.init(800, 640);
+  Crafty.init(config.canvas.width, config.canvas.height);
   Crafty.viewport.clampToEntities = false;
   Crafty.canvas.init();
 
-  Crafty.box2D.init(0, 10, 32, true);
+  Crafty.box2D.init(0, 10, config.pixelPerMeter, true);
 
   Crafty.scene('entry');
 

@@ -1,13 +1,15 @@
-define('box2dtwoway', ['crafty','box2d','clone'],
+define('box2dtwoway', ['crafty','box2d','config','clone'],
 
-function(Crafty, b2) {
+function(Crafty, b2, config) {
   'use strict';
   var isHittingSensor, jumpForce, moveClone, movementForce
     , nextCloneIndex;
 
   Crafty.c('b2Twoway', {
     init: function() {
-      var i, length, pos;
+      var i, length, pos, ppm;
+
+      ppm = config.pixelPerMeter;
 
       this.requires('Keyboard, Box2D');
 
@@ -19,7 +21,7 @@ function(Crafty, b2) {
       this._jump            = 0;
       this._speed           = 0;
 
-      pos = new b2.Vec2(0, 500/32);
+      pos = new b2.Vec2(0, 500 / ppm);
       for(i = 0; i < 2; i++) {
         length = this._clones.length;
         this._clones.push(Crafty.e('Clone'));
@@ -144,14 +146,17 @@ function(Crafty, b2) {
   };
 
   moveClone = function(clone, x, y) {
+    var ppm;
+
     clone.visible = false;
+    ppm = config.pixelPerMeter;
 
     // Needs to be divided by 32 because box2d used 32 as its pixels per
     // meter and forces/movement is measured that way in the world.
-    x /= 32;
-    y /= 32;
+    x /= ppm;
+    y /= ppm;
 
-    clone.body.SetPosition(new b2.Vec2(x, y + (20 / 32)));
+    clone.body.SetPosition(new b2.Vec2(x, y + (20 / ppm)));
     clone.visible = true;
   };
 });
